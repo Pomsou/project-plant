@@ -1,2 +1,2 @@
 # project-plant
-Habilitación de Django para software en planta (inventario, producción, etiquetado)
+Django habilitation for software in plant (inventary, production, layer)

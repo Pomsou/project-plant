@@ -1,7 +1,8 @@
 import openpyxl
 from openpyxl.styles import Border, Side, Alignment, Font, NamedStyle
 import os
-import produccion_gui
+
+from produccion_gui import *
 
 
 def _produccion():
@@ -9,7 +10,7 @@ def _produccion():
     os.chdir(file_location)
     reveal = os.getcwd()
     workbook = openpyxl.load_workbook("Producción 2018.xlsx")
-    sheet_1 = mes.get()
+    sheet_1 = dia_prod
     sheet = workbook[sheet_1]
 
     # Procesamiento de Datos
@@ -95,7 +96,7 @@ def _produccion():
 
     # Valores Fracción Gruesa
     # VALOR A CAMBIAR FRACCION GRUESA input("Ingrese producción fracción gruesa {}: "
-        sheet.cell(j, 6).value = int((entries[j - (row - 1)].get()).format(j - (row - 1)))
+        sheet.cell(j, 6).value = int((entries[j - (row - 1)].get()))
 
     # Valor Resultados
 
@@ -118,5 +119,6 @@ def _produccion():
                 sheet.cell(row, co).value = '=SUM($F${0}:$F${1})'.format(row, (max_range - 1))
         else:
             continue
-
+    boton_act = tk.Button(dialogo2, text='Actualizar BD', command=_produccion())
+    boton_act.grid(row=3, column=5, padx=10)
     workbook.save('Producción 2018.xlsx')

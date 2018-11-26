@@ -14,7 +14,8 @@ class Window():
         w1.pack(padx=30, pady=30)
 
         # Segunda aplicación
-        w2 = Button(settings_windows, text='Producción', command=produccion_gui.PRD().produccion, height='3', width='15', font=arial_new)
+        prod_settings = produccion_gui.PRD()
+        w2 = Button(settings_windows, text='Producción', command=prod_settings.produccion, height='3', width='15', font=arial_new)
         w2.place(x=65, y=150)
 
         # Tercera aplicación

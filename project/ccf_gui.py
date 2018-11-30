@@ -9,24 +9,30 @@ class Window():
 
     def __init__(self, master):
         arial_new = tk.font.Font(family='Arial', size=15)
+        # Frame etiquetas
+        custom_frame = tk.LabelFrame(settings_windows, bg='#5475B1', bd=0)
+        custom_frame.grid(row=1, column=0, pady=15, padx=15)
+
         # Primera aplicación
-        w1 = Button(settings_windows, text='Inventario', command=inventario_gui.inventario, height='3', width='15', font=arial_new)
-        w1.pack(padx=30, pady=30)
+        inv_settings = inventario_gui.INV()
+        w1 = Button(custom_frame, text='Inventario', command=inv_settings.inventario, height=5, font='Sunday', fg='#FFFFFF', bg='#151763', width=30)
+        w1.grid(row=1, column=0, padx=10, pady=10, stick='e')
 
         # Segunda aplicación
         prod_settings = produccion_gui.PRD()
-        w2 = Button(settings_windows, text='Producción', command=prod_settings.produccion, height='3', width='15', font=arial_new)
-        w2.place(x=65, y=150)
+        w2 = Button(custom_frame, text='Producción', command=prod_settings.produccion, font='Sunday', height=5, fg='#FFFFFF', bg='#151763', width=30)
+        w2.grid(row=2, column=0, padx=10, pady=10, stick='e')
 
         # Tercera aplicación
-        w3 = Button(settings_windows, text='Etiquetado', command=etiquetado_gui.etiquetado, height='3', width='15', font=arial_new)
-        w3.place(x=65, y=270)
+        etq_settings = etiquetado_gui.ETQ()
+        w3 = Button(custom_frame, text='Etiquetado', command=etq_settings.etiquetado, font='Sunday', height=5, fg='#FFFFFF', bg='#151763', width=30)
+        w3.grid(row=3, column=0, padx=10, pady=10, stick='e')
 
 
 if __name__ == '__main__':
     settings_windows = tk.Tk()
     app = Window(settings_windows)
     settings_windows.title("Planta de Fraccionamiento CCF")
-    settings_windows.geometry('300x400+500+160')
+    settings_windows.geometry('330x420+500+160')
     settings_windows.resizable(0, 0)
     settings_windows.mainloop()

@@ -2,13 +2,12 @@ import tkinter as tk
 import inventario_gui
 import produccion_gui
 import etiquetado_gui
-from tkinter import font, messagebox, Button
+from tkinter import Button
 
 
 class Window():
 
     def __init__(self, master):
-        arial_new = tk.font.Font(family='Arial', size=15)
         # Frame etiquetas
         custom_frame = tk.LabelFrame(settings_windows, bg='#5475B1', bd=0)
         custom_frame.grid(row=1, column=0, pady=15, padx=15)

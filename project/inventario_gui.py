@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import font, messagebox, Button, ttk
+from tkinter import Button, ttk
 
 
 class INV():
@@ -43,61 +43,60 @@ class INV():
         customer_frame2.grid(row=0, column=0, padx=10, pady=10)
         customer_frame3 = tk.LabelFrame(self.dialogo2, bg='#FFFFFF', bd=2)
         customer_frame3.grid(row=0, column=1, padx=10, pady=10)
-        # Box Lotes en planta
-        self.button = []
-        cont_check = [i for i in range(36)]
-        cont = 0
-        for i in range(7):
-            for j in range(0, 5):
-                if i == 4 and j == 2:
-                    self.button.append(Button(customer_frame2, text='Planta', command=lambda i=cont + 1: open_this(i)))
-                    self.button[cont].grid(row=i, column=j, sticky='e', padx=10, pady=10)
-                else:
-                    self.button.append(Button(customer_frame2, text='N° ' + str(cont + 1), command=lambda i=cont + 1: open_this(i)))
-                    self.button[cont].grid(row=i, column=j, sticky='e', padx=10, pady=10)
-                cont = cont + 1
 
         # Box Revisión Pallet
         def open_this(myNum):
-            self.max_valor = tk.IntVar()
             # Box Revisión Pallet
+            self.max_valor = 1
 
-            def onClick():
-                self.max_valor.set(self.max_valor.get() + 1)
+            def onClick(myNum):
                 self.num_lote = []
                 self.cant_tipo = []
                 self.tipo_formato = []
                 self.cant_form = []
                 self.cant_prod = []
-                for i in range(self.max_valor.get()):
-                    # if myNum in [0, 11]:
-                    # Tipo de Producto
+                # Tipo de Producto
+                lista = list(range(0, 11))
+                listb = list(range(11, 21))
+                if int(myNum) in lista:
+                    self.label_prod = ttk.Combobox(customer_frame3, values=['Avena de Los Andes', 'Avena con cáscara', 'Avena sin cáscara'], state='readonly')
+                    self.label_prod.grid(row=self.max_valor + 2, column=1)
+                    self.cant_tipo.append(self.label_prod)
+                elif int(myNum) in listb:
                     self.label_prod = ttk.Combobox(customer_frame3, values=['Milavena', 'Protavena', 'Fibravena'], state='readonly')
-                    self.label_prod.grid(row=i + 2, column=1)
+                    self.label_prod.grid(row=self.max_valor + 2, column=1)
+                    self.cant_tipo.append(self.label_prod)
+                else:
+                    self.label_prod = ttk.Combobox(customer_frame3, values=['Lentejas', 'Poroto Tórtola', 'Poroto Negro', 'Quinoa'], state='readonly')
+                    self.label_prod.grid(row=self.max_valor + 2, column=1)
                     self.cant_tipo.append(self.label_prod)
 
                     # Número de Lote
-                    self.c = tk.Entry(customer_frame3, width=10)
-                    self.c.grid(row=i + 2, column=2)
-                    self.num_lote.append(self.c)
+                self.c = tk.Entry(customer_frame3, width=10)
+                self.c.grid(row=self.max_valor + 2, column=2)
+                self.num_lote.append(self.c)
 
-                    # Tipo de envase
-                    self.form_prd = ttk.Combobox(customer_frame3, values=['Saco', 'Bolsa'], state='readonly', width=10)
-                    self.form_prd.grid(row=i + 2, column=3)
-                    self.tipo_formato.append(self.form_prd)
+                # Tipo de envase
+                self.form_prd = ttk.Combobox(customer_frame3, values=['Saco', 'Bolsa'], state='readonly', width=10)
+                self.form_prd.grid(row=self.max_valor + 2, column=3)
+                self.tipo_formato.append(self.form_prd)
 
-                    # Formato
-                    self.form_env = tk.Entry(customer_frame3, width=10)
-                    self.form_env.grid(row=i + 2, column=4)
-                    self.cant_form.append(self.form_env)
+                # Formato
+                self.form_env = tk.Entry(customer_frame3, width=10)
+                self.form_env.grid(row=self.max_valor + 2, column=4)
+                self.cant_form.append(self.form_env)
 
-                    # Cantidad Producida
-                    self.max_prod = ttk.Combobox(customer_frame3, values=[x for x in range(30)], state='readonly')
-                    self.max_prod.grid(row=i + 2, column=5)
-                    self.cant_prod.append(self.max_prod)
+                # Cantidad Producida
+                self.max_prod = ttk.Combobox(customer_frame3, values=[x for x in range(30)], state='readonly')
+                self.max_prod.grid(row=self.max_valor + 2, column=5)
+                self.cant_prod.append(self.max_prod)
+                self.max_valor = self.max_valor + 1
+
+            def onClick2():
+
 
             def action(event):
-                for i in range(self.max_valor.get()):
+                for i in range(self.max_valor2):
                     self.label_act = tk.Label(customer_frame3, text='✔', fg='#151763')
                     self.label_act.grid(row=i + 2, column=6)
 
@@ -129,11 +128,28 @@ class INV():
             label_form.grid(row=1, column=4, padx=5, pady=10)
             label_cant = tk.Label(customer_frame3, text='Cantidad', fg='#FFFFFF', bg='#151763', width=10)
             label_cant.grid(row=1, column=5, padx=5, pady=10)
-            lotes = tk.Button(customer_frame3, text='+', command=onClick, fg='gray24', bg='papaya whip')
+            lotes = tk.Button(customer_frame3, text='+', command=lambda i=myNum: onClick(i), fg='gray24', bg='papaya whip')
             lotes.grid(row=0, column=4, stick='e')
+            lotes2 = tk.Button(customer_frame3, text='-', command=onClick2, fg='gray24', bg='papaya whip')
+            lotes2.grid(row=0, column=5, stick='e')
             boton_max = tk.Button(customer_frame3, text='Set', command=setText, fg='gray24', bg='papaya whip')
-            boton_max.grid(row=0, column=5, pady=10, padx=10)
+            boton_max.grid(row=0, column=6, pady=10, padx=10)
             boton_max.bind('<Button-1>', action)
+        # Box Lotes en planta
+        self.button = []
+        cont_check = [i for i in range(36)]
+        cont = 0
+        for i in range(7):
+            for j in range(0, 5):
+                if i == 0 and j == 0:
+                    self.button.append(Button(customer_frame2, text='Planta', command=lambda i=cont: open_this(i)))
+                    self.button[cont].grid(row=0, column=0, sticky='e', padx=10, pady=10)
+                else:
+                    cont = cont + 1
+                    self.button.append(Button(customer_frame2, text='N° ' + str(cont), command=lambda i=cont: open_this(i)))
+                    self.button[cont].grid(row=i, column=j, sticky='e', padx=10, pady=10)
+
+        # Muestreo/Ingreso de datos
 
         # Botón Cerrar y mantener window inicial
         boton = Button(self.dialogo2, text='Cerrar', command=self.dialogo2.destroy, bd=0, fg='#FFFFFF', bg='#151763', height=2, width=10)

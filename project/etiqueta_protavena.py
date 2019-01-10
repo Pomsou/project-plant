@@ -65,7 +65,7 @@ class PROT():
 
     def base_etq(self):
 
-        file_location = "//Gcl-file-sr/CCF/03 Planta de Fraccionamiento/Operativo/Productos/Documentación productos CCF/Etiquetado"
+        file_location = "//Gcl-file-sr/CCF/03 Planta de Fraccionamiento/Operativo/Base de Datos/Etiquetado"
         os.chdir(file_location)
         workbook = openpyxl.load_workbook('Base de datos_Protavena.xlsx')
         sheet = workbook['BD']

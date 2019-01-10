@@ -5,12 +5,10 @@ import openpyxl
 from openpyxl.styles import Border, Side, Alignment, Font, NamedStyle
 import os
 import datetime
-import subprocess
-import psutil
 
 
 class PRD:
-    file_location = "//Gcl-file-sr/CCF/03 Planta de Fraccionamiento/Operativo/Producción"
+    file_location = "//Gcl-file-sr/CCF/03 Planta de Fraccionamiento/Operativo/Base de Datos/Producción"
     os.chdir(file_location)
 
     def produccion(self):
@@ -32,7 +30,7 @@ class PRD:
         self.año = self.fecha_hoy.year
         self.mes2 = self.fecha_hoy.month
         wb = openpyxl.load_workbook("Producción {0}.xlsx".format(self.año), data_only=True)
-        sheet = wb[self.file_mes[self.mes2 - 2]]
+        sheet = wb[self.file_mes[self.mes2 - 1]]
         reg_milavena = sheet.cell(5, 17).value
         reg_protavena = sheet.cell(6, 17).value
         result_merma = sheet.cell(7, 17).value
@@ -173,7 +171,7 @@ class PRD:
         abrir_boton = Button(self.dialogo2, text='Abrir archivo', command=abrir_file, bd=0, fg='#FFFFFF', bg='#151763', height=2, width=20)
         abrir_boton.grid(row=2, column=5, padx=10, pady=5)
         # Apertura y guardado de archivo
-        self.file_location = "//Gcl-file-sr/CCF/03 Planta de Fraccionamiento/Operativo/Producción"
+        self.file_location = "//Gcl-file-sr/CCF/03 Planta de Fraccionamiento/Operativo/Base de Datos/Producción"
         os.chdir(self.file_location)
         reveal = os.getcwd()
 
@@ -303,7 +301,7 @@ class PRD:
 
         # Valores Fracción Gruesa
         # VALOR A CAMBIAR FRACCION GRUESA input("Ingrese producción fracción gruesa {}: "
-            sheet.cell(j, 6).value = int(str(self.entries[(j - row)]))
+            sheet.cell(j, 6).value = float(self.entries[(j - row)])
 
         # Valor Resultados
 
@@ -311,7 +309,7 @@ class PRD:
             if co != 8:
                 if co == 7:
                     sheet.merge_cells(start_column=co, start_row=row, end_row=(max_range - 1), end_column=co)
-                    sheet.cell(row, co).value = int(self.cant_fina.get())
+                    sheet.cell(row, co).value = float(self.cant_fina.get())
                 if co == 9:
                     sheet.merge_cells(start_column=co, start_row=row, end_row=(max_range - 1), end_column=co)
                     sheet.cell(row, co).value = '=SUM($F${0}:$G${1})'.format(row, (max_range - 1))

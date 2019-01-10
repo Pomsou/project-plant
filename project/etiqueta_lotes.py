@@ -1,9 +1,7 @@
 import openpyxl
 import os
-from openpyxl.styles import PatternFill
 import tkinter as tk
 from tkinter import ttk
-import datetime as dt
 import subprocess
 
 
@@ -87,7 +85,7 @@ class LOT():
 
     def base_etq(self):
 
-        file_location = "//Gcl-file-sr/CCF/03 Planta de Fraccionamiento/Operativo/Productos/Documentación productos CCF/Etiquetado"
+        file_location = "//Gcl-file-sr/CCF/03 Planta de Fraccionamiento/Operativo/Base de Datos/Etiquetado"
         os.chdir(file_location)
         workbook = openpyxl.load_workbook('Base de datos_Lotes.xlsx')
         sheet = workbook['BD']
